@@ -1,7 +1,16 @@
 tarefas = {}
 usuarios = {}
 
-# Função para fazer login
+def fazer_cadastro():
+    global usuarios
+    novo_login = input("Digite um novo login: ")
+    if novo_login in usuarios:
+        print("Este login já está em uso. Tente outro.")
+        return
+    nova_senha = input("Digite uma senha: ")
+    usuarios[novo_login] = nova_senha
+    print("Cadastro realizado com sucesso.")
+
 def fazer_login():
     global usuarios
     login = input("Digite o login: ")
@@ -14,18 +23,6 @@ def fazer_login():
     
     return False
 
-# Função para realizar o cadastro
-def fazer_cadastro():
-    global usuarios
-    novo_login = input("Digite um novo login: ")
-    if novo_login in usuarios:
-        print("Este login já está em uso. Tente outro.")
-        return
-    nova_senha = input("Digite uma senha: ")
-    usuarios[novo_login] = nova_senha
-    print("Cadastro realizado com sucesso.")
-
-# Restante do código permanece inalterado
 while True:
     print("\n escolha uma opção ")
     print("1. Login.")
@@ -41,14 +38,12 @@ while True:
                 tarefas[len(tarefas) + 1] = {'tarefa': tarefa, 'concluida': False}
                 print("Tarefa adicionada com sucesso!")
 
-    # Função para listar todas as tarefas
             def listar_tarefas():
                 print("Tarefas pendentes:")
                 for id, tarefa in tarefas.items():
                     if not tarefa['concluida']:
                         print(f"{id}: {tarefa['tarefa']}")
 
-    # Função para marcar uma tarefa como concluída
             def marcar_como_concluida():
                 listar_tarefas()
                 tarefa_id = int(input("Digite o ID da tarefa concluída: "))
@@ -58,7 +53,6 @@ while True:
                 else:
                     print("Tarefa não encontrada ou já concluída.")
 
-    # Função para excluir uma tarefa
             def excluir_tarefa():
                 listar_tarefas()
                 tarefa_id = int(input("Digite o ID da tarefa a ser excluída: "))
@@ -68,15 +62,13 @@ while True:
                 else:
                     print("Tarefa não encontrada.")
 
-    # Loop principal
-
             while True:
                 print("\nEscolha uma opção:")
                 print("1. Adicionar Tarefa")
                 print("2. Listar Tarefas Pendentes")
                 print("3. Marcar Tarefa como Concluída")
                 print("4. Excluir Tarefa")
-                print("5. Sair")
+                print("5. Sair da conta")
         
                 escolha = input("Digite o número da opção: ")
                 
@@ -89,7 +81,7 @@ while True:
                 elif escolha == '4':
                     excluir_tarefa()
                 elif escolha == '5':
-                    print("Saindo do programa.")
+                    print("Até a proxima.")
                     break
                 else:
                     print("Opção inválida. Por favor, escolha uma opção válida.")
