@@ -1,5 +1,11 @@
 tarefas = {}
 usuarios = {}
+def isnumber(value):
+    try:
+         float(value)
+    except ValueError:
+         return False
+    return True
 def fazer_login():
     global usuarios
     login = input("Digite o login: ")
@@ -19,6 +25,11 @@ def fazer_cadastro():
     nova_senha = input("Digite uma senha: ")
     usuarios[novo_login] = nova_senha
     print("Cadastro realizado com sucesso.")
+def listar_tarefas():
+    print("Tarefas pendentes:")
+    for id, tarefa in tarefas.items():
+        if not tarefa['concluida']:
+            print(f"{id}: {tarefa['tarefa']}")
 while True:
     print("\n escolha uma opção ")
     print("1. Login.")
@@ -31,27 +42,30 @@ while True:
                 tarefa = input("Digite a tarefa: ")
                 tarefas[len(tarefas) + 1] = {'tarefa': tarefa, 'concluida': False}
                 print("Tarefa adicionada com sucesso!")
-                def listar_tarefas():
-                print("Tarefas pendentes:")
-                for id, tarefa in tarefas.items():
-                    if not tarefa['concluida']:
-                        print(f"{id}: {tarefa['tarefa']}")
+
             def marcar_como_concluida():                     
                 listar_tarefas()
-                tarefa_id = int(input("Digite o ID da tarefa concluída: "))
-                if tarefa_id in tarefas and not tarefas[tarefa_id]['concluida']:
-                    tarefas[tarefa_id]['concluida'] = True
-                    print("Tarefa marcada como concluída.")
+                tarefa_id = input("Digite o ID da tarefa concluída: ") 
+                if isnumber(tarefa_id):
+
+                    if tarefa_id in tarefas and not tarefas[tarefa_id]['concluida']:
+                        tarefas[tarefa_id]['concluida'] = True
+                        print("Tarefa marcada como concluída.")          
+                    else:
+                        print("Tarefa não encontrada ou já concluída.")
                 else:
-                    print("Tarefa não encontrada ou já concluída.")                    
+                    print("input invalido")
             def excluir_tarefa():
                 listar_tarefas()
-                tarefa_id = int(input("Digite o ID da tarefa a ser excluída: "))
-                if tarefa_id in tarefas:
-                    del tarefas[tarefa_id]
-                    print("Tarefa excluída com sucesso.")
+                tarefa_id = input("Digite o ID da tarefa a ser excluída: ")
+                if isnumber(tarefa_id):
+                    if tarefa_id in tarefas:
+                        del tarefas[tarefa_id]
+                        print("Tarefa excluída com sucesso.")
+                    else:
+                        print("Tarefa não encontrada.")
                 else:
-                    print("Tarefa não encontrada.")
+                    print("input invalido")        
             while True:
                 print("\nEscolha uma opção:")
                 print("1. Adicionar Tarefa")
